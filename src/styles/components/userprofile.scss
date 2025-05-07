@@ -1,0 +1,481 @@
+/* CSS IMPORTS */
+
+@import '../fragments/colors.scss';
+@import '../fragments/mixins.scss';
+
+
+
+.userprofile{
+
+
+    position: fixed;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    background-color: rgb(71, 71, 71);
+    width:460px;
+    height:560px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+ margin: auto;
+ border-radius: 2%;
+
+
+
+ .close-icon{
+
+    position: absolute;
+    top:1rem;
+    right:1rem;
+    cursor: pointer;
+
+    &:hover{
+        color:rgb(237, 32, 66);
+    }
+ }
+
+    .userprofile-content{
+ text-align: center;
+
+
+
+        .profile-picture{
+
+            width:300px;
+            height:300px;
+           
+            border-radius: 50%;
+            margin: auto;
+            margin-bottom: 1rem;
+        }
+
+        .username-age{
+            font-weight: bolder;
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .editprofile{
+
+            margin-top: 1rem;
+            padding:0.5rem 1rem;
+          
+            color:black;
+            background-color: $accent-colorb;
+            display:flex;
+            align-items: center;
+            gap:0.5rem;
+            
+             margin-left: auto;
+             margin-right: auto;
+             margin-bottom: 0rem;
+
+
+            &:hover{
+
+                color:white;
+                outline:1px solid white;
+                background-color: transparent;
+            }
+        }
+        
+        .edit-profile{
+            display:flex;
+            flex-direction: column;
+          
+
+
+            .edit-section{
+                display:flex;
+                flex-direction: column;
+                gap:0.2rem;
+                text-align: left;
+
+              
+
+                .choose-file{
+                    background-color: transparent;
+                    color:white;
+                     cursor: pointer;
+                }
+            }
+            .edit-input, .choose-file{
+
+                background-color: white;
+                color:black;
+                margin-bottom: 1rem;
+                outline:none;
+                border:none;
+            }
+        }
+        
+    }
+}
+
+
+.user-meta{
+    position: relative;
+}
+
+.online{
+    position: absolute;
+
+}
+
+@media(max-width: 730px){
+
+    .userprofile{
+
+
+        position: fixed;
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+        background-color: rgb(71, 71, 71);
+        width:70%;
+        height:80%;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+     margin: auto;
+     border-radius: 2%;
+     z-index: 9999999999999999999999;
+    
+    
+    
+     .close-icon{
+    
+        position: absolute;
+        top:1rem;
+        right:1rem;
+        cursor: pointer;
+    
+        &:hover{
+            color:rgb(237, 32, 66);
+        }
+     }
+    
+        .userprofile-content{
+     text-align: center;
+    
+    
+    
+            .profile-picture{
+     margin: auto;
+                width:150px;
+                height:150px;
+               
+                border-radius: 50%;
+            }
+    
+            .username-age{
+                font-weight: bolder;
+                font-size: 1.5rem;
+                margin-bottom: 0.3rem;
+            }
+    
+            .editprofile{
+       
+                margin-top: 1rem;
+                padding:0.5rem 1rem;
+              
+                color:black;
+                background-color: $accent-colorb;
+                display:flex;
+                align-items: center;
+                gap:0.5rem;
+                
+                 margin-left: auto;
+                 margin-right: auto;
+                 margin-bottom: 0rem;
+    
+    
+                &:hover{
+    
+                    color:white;
+                    outline:1px solid white;
+                    background-color: transparent;
+                }
+            }
+            
+            .edit-profile{
+                display:flex;
+                flex-direction: column;
+              
+    
+    
+                .edit-section{
+                    display:flex;
+                    flex-direction: column;
+                    gap:0.2rem;
+                    text-align: left;
+    
+                  
+    
+                    .choose-file{
+                        background-color: transparent;
+                        color:white;
+                         cursor: pointer;
+                    }
+                }
+                .edit-input, .choose-file{
+                     
+                    background-color: white;
+                    color:black;
+                    margin-bottom: 1rem;
+                    outline:none;
+                    border:none;
+                }
+            }
+            
+        }
+    }
+}
+
+/* @media(max-width: 660px){
+    .user-profile{
+        width: fit-content;
+    }
+
+} */
+
+
+@media(max-width: 570px){
+
+    .userprofile{
+
+
+        position: fixed;
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+        background-color: rgb(71, 71, 71);
+        width:90%;
+        height:80%;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+     margin: auto;
+     border-radius: 2%;
+     z-index: 9999999999999999999999;
+    
+     .status{
+        font-size: 0.8rem;
+     }
+     .gender-city{
+        font-size: 0.8rem;
+     }
+    
+     .close-icon{
+    
+        position: absolute;
+        top:1rem;
+        right:1rem;
+        cursor: pointer;
+    
+        &:hover{
+            color:rgb(237, 32, 66);
+        }
+     }
+    
+        .userprofile-content{
+     text-align: center;
+    
+    
+    
+            .profile-picture{
+     margin: auto;
+                width:150px;
+                height:150px;
+               
+                border-radius: 50%;
+            }
+    
+            .username-age{
+                font-weight: bolder;
+                font-size: 1rem;
+                margin-bottom: 0.3rem;
+            }
+    
+            .editprofile{
+       
+                margin-top: 1rem;
+                padding:0.5rem 1rem;
+              
+                color:black;
+                background-color: $accent-colorb;
+                display:flex;
+                align-items: center;
+                gap:0.5rem;
+                
+                 margin-left: auto;
+                 margin-right: auto;
+                 margin-bottom: 0rem;
+    
+    
+                &:hover{
+    
+                    color:white;
+                    outline:1px solid white;
+                    background-color: transparent;
+                }
+            }
+            
+            .edit-profile{
+                display:flex;
+                flex-direction: column;
+              
+    
+    
+                .edit-section{
+                    display:flex;
+                    flex-direction: column;
+                    gap:0.2rem;
+                    text-align: left;
+    
+                  
+    
+                    .choose-file{
+                        background-color: transparent;
+                        color:white;
+                         cursor: pointer;
+                    }
+                }
+                .edit-input, .choose-file{
+    
+                    background-color: white;
+                    color:black;
+                    margin-bottom: 1rem;
+                    outline:none;
+                    border:none;
+                }
+            }
+            
+        }
+    }
+}
+
+
+@media(max-width: 380px){
+
+    .userprofile{
+
+
+        position: fixed;
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+        background-color: rgb(71, 71, 71);
+        width:100%;
+        height:60%;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+     margin: auto;
+     border-radius: 2%;
+     z-index: 9999999999999999999999;
+    
+     .status{
+        font-size: 0.8rem;
+     }
+     .gender-city{
+        font-size: 0.8rem;
+     }
+    
+     .close-icon{
+    
+        position: absolute;
+        top:1rem;
+        right:1rem;
+        cursor: pointer;
+    
+        &:hover{
+            color:rgb(237, 32, 66);
+        }
+     }
+    
+        .userprofile-content{
+     text-align: center;
+    
+    
+    
+            .profile-picture{
+     margin: auto;
+                width:100px;
+                height:100px;
+               
+                border-radius: 50%;
+            }
+    
+            .username-age{
+                font-weight: bolder;
+                font-size: 1rem;
+                margin-bottom: 0.3rem;
+            }
+    
+            .editprofile{
+    
+                margin-top: 1rem;
+                padding:0.5rem 1rem;
+              
+                color:black;
+                background-color: $accent-colorb;
+                display:flex;
+                align-items: center;
+                gap:0.5rem;
+                
+                 margin-left: auto;
+                 margin-right: auto;
+                 margin-bottom: 0rem;
+    
+    
+                &:hover{
+    
+                    color:white;
+                    outline:1px solid white;
+                    background-color: transparent;
+                }
+            }
+            
+            .edit-profile{
+                display:flex;
+                flex-direction: column;
+              
+    
+    
+                .edit-section{
+                    display:flex;
+                    flex-direction: column;
+                    gap:0.2rem;
+                    text-align: left;
+    
+                  
+    
+                    .choose-file{
+                        background-color: transparent;
+                        color:white;
+                         cursor: pointer;
+                    }
+                }
+                .edit-input, .choose-file{
+    
+                    background-color: white;
+                    color:black;
+                    margin-bottom: 1rem;
+                    outline:none;
+                    border:none;
+                }
+            }
+            
+        }
+    }
+}

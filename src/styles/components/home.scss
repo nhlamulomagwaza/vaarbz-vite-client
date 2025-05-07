@@ -1,0 +1,87 @@
+/* CSS IMPORTS */
+
+@import '../fragments/colors.scss';
+@import '../fragments/mixins.scss';
+
+
+
+/* HOME STYLES */
+
+
+.home{
+        width:100%;
+        overflow-x: hidden;
+    .home-content{
+        height:100dvh;
+display:flex;
+gap:1rem;
+align-items: center;
+
+    }
+}
+
+
+.splash-screen{
+    width:100%;
+    height:100dvh;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+    font-size: 4rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.animated-title {
+    display: flex;
+    justify-content: center;
+    gap: 5px; /* Space between letters */
+    font-size: 4rem;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .letter {
+    animation: flicker 1.5s infinite, colorChange 3s infinite;
+  }
+  
+  /* Flickering effect */
+  @keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+      opacity: 1;
+    }
+    20%, 24%, 55% {
+      opacity: 0.5;
+    }
+  }
+  
+  /* Color-changing effect */
+  @keyframes colorChange {
+    0% {
+      color: #FF5733;
+    }
+    20% {
+      color: #33FF57;
+    }
+    40% {
+      color: #3357FF;
+    }
+    60% {
+      color: #FF33A1;
+    }
+    80% {
+      color: #FFC300;
+    }
+    100% {
+      color: #DAF7A6;
+    }
+  }
+  
+  .emoji {
+    animation: flicker 1.5s infinite;
+  }
