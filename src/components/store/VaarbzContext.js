@@ -85,7 +85,7 @@ export const VaarbzProvider = ({ children }) => {
             }
         };
         fetchUsers();
-        const interval = setInterval(fetchUsers, 30000);
+        const interval = setInterval(fetchUsers, 120000);
         return () => clearInterval(interval);
     }, [authUser]);
     /*  const joinRoom = (userId: string) => {

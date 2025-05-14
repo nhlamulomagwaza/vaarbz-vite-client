@@ -25,11 +25,26 @@ const TextArea = () => {
             socket.emit('stop_typing', { senderId: authUser.user._id, receiverId: selectedUser._id });
         }, 2000);
     };
-   const sendMessage = async (e) => {
+const sendMessage = async (e) => {
     e.preventDefault();
+
     if (message.length === 0) {
         return toast.error('Cannot send a blank text');
     }
+
+    // Create a temporary message object
+    const tempMessage = {
+        _id: `temp-${Date.now()}`, // Temporary unique ID
+        senderId: authUser.user._id,
+        receiverId: selectedUser._id,
+        message: message,
+        createdAt: new Date().toISOString(), // Add a timestamp
+        isTemporary: true, // Mark as a temporary message
+    };
+
+    // Optimistically update the messages state
+    setMessages((prevMessages) => [...prevMessages, tempMessage]);
+    setMessage(''); // Clear the input field
 
     try {
         const token = authUserToken || localStorage.getItem('vaarbz-user-token'); // Fallback to localStorage
@@ -47,12 +62,42 @@ const TextArea = () => {
         });
 
         if (response.ok) {
+            const responseData = await response.json();
+
+            // Replace the temporary message using senderId and receiverId
+            setMessages((prevMessages) =>
+                prevMessages.map((msg) =>
+                    msg.isTemporary &&
+                    msg.senderId === authUser.user._id &&
+                    msg.receiverId === selectedUser._id
+                        ? responseData
+                        : msg
+                )
+            );
+
             console.log('Message sent successfully');
-            setMessage('');
         } else {
+            // Remove the temporary message if the API request fails
+            setMessages((prevMessages) =>
+                prevMessages.filter(
+                    (msg) =>
+                        !(msg.isTemporary &&
+                          msg.senderId === authUser.user._id &&
+                          msg.receiverId === selectedUser._id)
+                )
+            );
             toast.error('Failed to send message');
         }
     } catch (error) {
+        // Remove the temporary message if an error occurs
+        setMessages((prevMessages) =>
+            prevMessages.filter(
+                (msg) =>
+                    !(msg.isTemporary &&
+                      msg.senderId === authUser.user._id &&
+                      msg.receiverId === selectedUser._id)
+            )
+        );
         toast.error(error.message || String(error));
     }
 };

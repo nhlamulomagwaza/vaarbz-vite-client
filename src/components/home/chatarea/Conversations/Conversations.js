@@ -2,7 +2,7 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { useEffect, useRef, useState } from 'react';
 import '../../../../styles/components/chatarea.scss';
 import { useContext } from 'react';
-import { VaarbzContext } from '../../../../components/store/VaarbzContext';
+import { VaarbzContext } from '../../../store/VaarbzContext.js';
 import { MoonLoader } from 'react-spinners';
 import useListenMessages from '../../../../hooks/useListenMessages.js';
 const Conversations = () => {
@@ -23,37 +23,43 @@ const Conversations = () => {
     }, [messages]);
     // Fetch initial messages when selectedUser changes
     useEffect(() => {
-        const fetchMessages = async () => {
-            try {
-                setLoadingMessages(true);
-                const response = await fetch(`https://vaarbz.onrender.com/api/chats/getmessage/${selectedUser._id}`, {
-                    method: 'GET',
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${authUserToken}`,
-                    },
+    const fetchMessages = async () => {
+        try {
+            setLoadingMessages(true);
+            const response = await fetch(`https://vaarbz.onrender.com/api/chats/getmessage/${selectedUser._id}`, {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${authUserToken}`,
+                },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+
+                setMessages((prevMessages) => {
+                    // Remove temporary messages that have been replaced
+                    const nonTemporaryMessages = prevMessages.filter((m) => !m._id.startsWith('temp-'));
+
+                    // Filter out duplicates
+                    const existingIds = new Set(nonTemporaryMessages.map((m) => m._id));
+                    const newMessages = data.filter((m) => !existingIds.has(m._id));
+
+                    // Merge non-temporary messages with new messages from the server
+                    return [...nonTemporaryMessages, ...newMessages];
                 });
-                if (response.ok) {
-                    const data = await response.json();
-                    setMessages((prevMessages) => {
-                        const existingIds = new Set(prevMessages.map((m) => m._id));
-                        const newMessages = data.filter((m) => !existingIds.has(m._id));
-                        return [...prevMessages, ...newMessages];
-                    });
-                }
             }
-            catch (e) {
-                console.log(e);
-            }
-            finally {
-                setLoadingMessages(false);
-            }
-        };
-        if (selectedUser?._id) {
-            fetchMessages();
+        } catch (e) {
+            console.log(e);
+        } finally {
+            setLoadingMessages(false);
         }
-    }, [selectedUser._id, authUserToken, setMessages]);
-    // Clear messages when selectedUser changes
+    };
+
+    if (selectedUser?._id) {
+        fetchMessages();
+    }
+}, [selectedUser._id, authUserToken, setMessages]);  // Clear messages when selectedUser changes
     useEffect(() => {
         setMessages([]);
     }, [selectedUser, setMessages]);
@@ -64,10 +70,15 @@ const Conversations = () => {
                                 message.senderId === authUser.user._id))
                             .map((message) => (_jsx("div", { className: `chat ${selectedUser._id === message.receiverId
                                 ? 'chat-end'
-                                : 'chat-start'}`, children: _jsx("div", { className: "chat-bubble text-black", style: {
+                                : 'chat-start'}`, children: _jsx("div", { className: `chat-bubble text-black ${
+                                            message.resolved ? 'resolved' : ''
+                                        }`, style: {
                                     backgroundColor: selectedUser._id === message.receiverId
                                         ? '#00B5FF'
                                         : 'white',
                                 }, color: "white", children: message.message }) }, message._id))), typingUsers.has(selectedUser._id) && (_jsx("div", { className: "chat chat-start", children: _jsx("div", { className: "chat-bubble typing-indicator", children: _jsxs("div", { className: "typing-dots", children: [_jsx("span", { className: "dot" }), _jsx("span", { className: "dot" }), _jsx("span", { className: "dot" })] }) }) })), _jsx("div", { ref: messagesEndRef })] })) })) }) }));
-};
+
+
+
+                            };
 export default Conversations;
