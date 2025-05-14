@@ -33,7 +33,7 @@ const sendMessage = async (e) => {
     }
 
     // Create a temporary message object
-    const tempMessage = {
+    /* const tempMessage = {
         _id: `temp-${Date.now()}`, // Temporary unique ID
         senderId: authUser.user._id,
         receiverId: selectedUser._id,
@@ -43,8 +43,8 @@ const sendMessage = async (e) => {
     };
 
     // Optimistically update the messages state
-    setMessages((prevMessages) => [...prevMessages, tempMessage]);
-    setMessage(''); // Clear the input field
+    setMessages((prevMessages) => [...prevMessages, tempMessage]); */
+  
 
     try {
         const token = authUserToken || localStorage.getItem('vaarbz-user-token'); // Fallback to localStorage
@@ -63,9 +63,9 @@ const sendMessage = async (e) => {
 
         if (response.ok) {
             const responseData = await response.json();
-
+  setMessage(''); // Clear the input field
             // Replace the temporary message using senderId and receiverId
-            setMessages((prevMessages) =>
+           /*  setMessages((prevMessages) =>
                 prevMessages.map((msg) =>
                     msg.isTemporary &&
                     msg.senderId === authUser.user._id &&
@@ -73,7 +73,7 @@ const sendMessage = async (e) => {
                         ? responseData
                         : msg
                 )
-            );
+            ); */
 
             console.log('Message sent successfully');
         } else {

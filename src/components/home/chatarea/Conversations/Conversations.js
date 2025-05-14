@@ -70,9 +70,7 @@ const Conversations = () => {
                                 message.senderId === authUser.user._id))
                             .map((message) => (_jsx("div", { className: `chat ${selectedUser._id === message.receiverId
                                 ? 'chat-end'
-                                : 'chat-start'}`, children: _jsx("div", { className: `chat-bubble text-black ${
-                                            message.resolved ? 'resolved' : ''
-                                        }`, style: {
+                                : 'chat-start'}`, children: _jsx("div", { className: "chat-bubble text-black", style: {
                                     backgroundColor: selectedUser._id === message.receiverId
                                         ? '#00B5FF'
                                         : 'white',

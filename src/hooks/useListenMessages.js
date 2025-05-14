@@ -40,7 +40,7 @@ useEffect(() => {
 
   const messageHandler = (newMessage) => {
     console.log("New message received:", newMessage);
-   // setMessages((prev) => [...prev, newMessage]);
+    setMessages((prev) => [...prev, newMessage]);
   
    // Display a toast notification for the new message with a 6-second duration
    if (newMessage.senderId !== authUser.user._id) {
