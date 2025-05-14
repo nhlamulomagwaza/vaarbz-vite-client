@@ -41,7 +41,27 @@ useEffect(() => {
   const messageHandler = (newMessage) => {
     console.log("New message received:", newMessage);
    // setMessages((prev) => [...prev, newMessage]);
-  
+  //===
+
+
+ // Update messages only if the current user is the receiver
+    if (newMessage.receiverId === authUser.user._id) {
+        setMessages((prev) => {
+            // Check if the message already exists to avoid duplicates
+            const messageExists = prev.some((msg) => msg._id === newMessage._id);
+
+            if (messageExists) {
+                console.log("Duplicate message detected. Skipping addition.");
+                return prev; // Return the current state without adding the duplicate
+            }
+
+            // Add the new message if it doesn't already exist
+            return [...prev, newMessage];
+        });
+    }
+
+
+   // ==
    // Display a toast notification for the new message with a 6-second duration
    if (newMessage.senderId !== authUser.user._id) {
     toast.success(`New message from ${newMessage.senderName || "a user"}: ${newMessage.message}`, {
