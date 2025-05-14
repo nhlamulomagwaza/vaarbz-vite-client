@@ -26,7 +26,7 @@ const Conversations = () => {
     throw new Error('Conversations must be used within a VaarbzContextProvider');
   }
   const { authUserToken, selectedUser, authUser, messages, setMessages, typingUsers } = context;
-
+ const { socket } = useSocketContext();
   const [loadingMessages, setLoadingMessages] = useState(false);
 
   // Ref for the messages container
@@ -73,7 +73,7 @@ const Conversations = () => {
     if (selectedUser?._id) {
       fetchMessages();
     }
-  }, [selectedUser._id, authUserToken, setMessages]);
+  }, [selectedUser._id, authUserToken, setMessages, socket]);
 
   // Clear messages when selectedUser changes
   useEffect(() => {
