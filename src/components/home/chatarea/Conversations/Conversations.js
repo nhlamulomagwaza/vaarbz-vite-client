@@ -38,16 +38,10 @@ const Conversations = () => {
                 const data = await response.json();
 
                 setMessages((prevMessages) => {
-                    // Remove temporary messages that have been replaced
-                    const nonTemporaryMessages = prevMessages.filter((m) => !m._id.startsWith('temp-'));
-
-                    // Filter out duplicates
-                    const existingIds = new Set(nonTemporaryMessages.map((m) => m._id));
-                    const newMessages = data.filter((m) => !existingIds.has(m._id));
-
-                    // Merge non-temporary messages with new messages from the server
-                    return [...nonTemporaryMessages, ...newMessages];
-                });
+            const existingIds = new Set(prevMessages.map((m) => m._id));
+            const newMessages = data.filter((m) => !existingIds.has(m._id));
+            return [...prevMessages, ...newMessages];
+          });
             }
         } catch (e) {
             console.log(e);

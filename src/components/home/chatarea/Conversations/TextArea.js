@@ -33,7 +33,7 @@ const sendMessage = async (e) => {
     }
 
     // Create a temporary message object
-    /* const tempMessage = {
+     const tempMessage = {
         _id: `temp-${Date.now()}`, // Temporary unique ID
         senderId: authUser.user._id,
         receiverId: selectedUser._id,
@@ -43,7 +43,7 @@ const sendMessage = async (e) => {
     };
 
     // Optimistically update the messages state
-    setMessages((prevMessages) => [...prevMessages, tempMessage]); */
+    setMessages((prevMessages) => [...prevMessages, tempMessage]);
   
 
     try {
@@ -65,7 +65,7 @@ const sendMessage = async (e) => {
             const responseData = await response.json();
   setMessage(''); // Clear the input field
             // Replace the temporary message using senderId and receiverId
-           /*  setMessages((prevMessages) =>
+            setMessages((prevMessages) =>
                 prevMessages.map((msg) =>
                     msg.isTemporary &&
                     msg.senderId === authUser.user._id &&
@@ -73,7 +73,7 @@ const sendMessage = async (e) => {
                         ? responseData
                         : msg
                 )
-            ); */
+            ); 
 
             console.log('Message sent successfully');
         } else {
