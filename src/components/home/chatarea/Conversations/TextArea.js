@@ -44,7 +44,7 @@ const sendMessage = async (e) => {
 
     // Optimistically update the messages state
     setMessages((prevMessages) => [...prevMessages, tempMessage]);
-  
+   setMessage(''); // Clear the input field
 
     try {
         const token = authUserToken || localStorage.getItem('vaarbz-user-token'); // Fallback to localStorage
@@ -63,7 +63,7 @@ const sendMessage = async (e) => {
 
         if (response.ok) {
             const responseData = await response.json();
-  setMessage(''); // Clear the input field
+ 
             // Replace the temporary message using senderId and receiverId
             setMessages((prevMessages) =>
                 prevMessages.map((msg) =>
