@@ -10,7 +10,7 @@ import { ScaleLoader } from 'react-spinners';
 import { useController } from 'react-hook-form';
 import { VaarbzContext } from '../store/VaarbzContext';
 const Sign = () => {
-    const { authUser, setAuthUser } = useContext(VaarbzContext);
+    const { authUser, setAuthUser, setAuthUserToken } = useContext(VaarbzContext);
     // State for profile picture
     const [profilePicture, setProfilePicture] = useState(null);
     //CONSTANTS AND DECLARATIONS
@@ -94,12 +94,13 @@ const Sign = () => {
 
       toast.success('Registration successful!');
       setAuthUser(responseData);
+      setAuthUserToken(responseData.accessToken);
       console.log(authUser);
 
       // Reload the page to reflect the logged-in state
-      setTimeout(() => {
+      /* setTimeout(() => {
         location.reload();
-      }, 1000);
+      }, 1000); */
     } else {
       // Handle errors from the server
       toast.error(responseData.message || 'Registration failed. Please try again.');
@@ -154,10 +155,11 @@ const Sign = () => {
             else {
                 toast.success('Login successful!');
                 setAuthUser(responseData);
-                /* setTimeout(() => {
+                   setAuthUserToken(responseData.accessToken);
+               /*   setTimeout(() => {
                   location.reload();
                   
-                  }, 1000) */
+                  }, 1000)  */
             }
         }
         catch (error) {
