@@ -83,53 +83,63 @@ const Sign = () => {
  //API CALLS
 
   // Handle Sign Up
-  const handleRegister: SubmitHandler<FormFields> = async (data) => {
-    console.log('Form submitted with data:', data); // Check the submitted data
+ const handleRegister: SubmitHandler<FormFields> = async (data) => {
+  console.log('Form submitted with data:', data); // Check the submitted data
 
+  try {
+    const formData = new FormData();
+    formData.append('username', data.username.toLowerCase().trim());
+    formData.append('password', data.password.trim());
+    formData.append('gender', data.gender);
 
-  
-    try {
-      const formData = new FormData();
-      formData.append('username', data.username.toLowerCase().trim()); //
-      formData.append('password', data.password.trim());
-      formData.append('gender', data.gender);
-  // Check if age is defined and append it
-  if (data.age !== undefined) {
-    console.log('Appending age:', data.age);
-    formData.append('age', data.age.toString());
-  } else {
-    console.error('No age provided');
-  }
-      formData.append('city', data.city);
-      
-      
-      // Append profile picture from state
-      if (profilePicture) {
-        formData.append('profilePicture', profilePicture);
-      } else {
-        console.error('No profile picture selected');
-      }
-
-  
-      const response = await fetch('https://vaarbz.onrender.com/api/users/register', {
-        method: 'POST',
-        
-        body: formData,
-      });
-  
-      if (!response.ok) {
-        throw new Error('Signup failed. Please try again.');
-      }
-  
-      const responseData = await response.json();
-  
-      toast.success('Registration successful!');
-    } catch (error) {
- 
-      setErrorSignUp('root', { message: error.message });
-      toast.error(error.message);
+    // Check if age is defined and append it
+    if (data.age !== undefined) {
+      console.log('Appending age:', data.age);
+      formData.append('age', data.age.toString());
+    } else {
+      console.error('No age provided');
     }
-  };
+
+    formData.append('city', data.city);
+
+    // Append profile picture from state
+    if (profilePicture) {
+      formData.append('profilePicture', profilePicture);
+    } else {
+      console.error('No profile picture selected');
+    }
+
+    const response = await fetch('https://vaarbz.onrender.com/api/users/register', {
+      method: 'POST',
+      body: formData,
+    });
+console.log(response)
+    const responseData = await response.json();
+    console.log("registration response data: ", responseData);
+
+    if (response.status === 201) {
+      toast.success('got 201');
+      // Save the user object and token to local storage
+      localStorage.setItem('vaarbz-user', JSON.stringify(responseData));
+      localStorage.setItem('vaarbz-user-token', responseData.accessToken);
+
+      toast.success('Registration successful!');
+      setAuthUser(responseData);
+  console.log(authUser);
+      // Reload the page to reflect the logged-in state
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
+    } else {
+      // Handle errors from the server
+      toast.error(responseData.message || 'Registration failed. Please try again.');
+    }
+  } catch (error) {
+    console.error(error.message);
+    setErrorSignUp('root', { message: error.message });
+    toast.error('An error occurred during registration. Please try again.');
+  }
+};
 
     // Handle Sign In
    // Handle Sign In
@@ -184,10 +194,10 @@ let user;
       toast.success('Login successful!');
       setAuthUser(responseData);
       
-    /* setTimeout(() => {
+     setTimeout(() => {
       location.reload();   
       
-      }, 1000) */
+      }, 1000) 
   
           }
 
